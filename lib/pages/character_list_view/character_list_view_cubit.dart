@@ -10,7 +10,8 @@ part 'character_list_view_state.dart';
 class CharacterListViewCubit extends Cubit<CharacterListViewState> {
   CharacterListViewCubit() : super(CharacterListViewInitial());
 
-  void getCharacters() async {
+  Future<void> getCharacters() async {
+    emit(CharacterListViewLoading());
     final response = await http
         .get(Uri.parse('http://api.duckduckgo.com/?q=simpsons+characters&format=json'));
     if (response.statusCode == 200) {

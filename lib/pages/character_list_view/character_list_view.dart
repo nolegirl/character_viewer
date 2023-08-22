@@ -1,5 +1,6 @@
 import 'package:character_viewer/models/character.dart';
 import 'package:character_viewer/pages/character_list_view/character_list_view_cubit.dart';
+import 'package:character_viewer/widgets/full_screen_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +25,11 @@ class _CharacterListViewState extends State<CharacterListView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Character List'),
+        actions: [
+          IconButton(onPressed: () {
+            context.read<CharacterListViewCubit>().getCharacters();
+    }, icon: Icon(Icons.refresh))
+        ],
       ),
       body: SafeArea(
           child: BlocConsumer<CharacterListViewCubit, CharacterListViewState>(
@@ -35,26 +41,30 @@ class _CharacterListViewState extends State<CharacterListView> {
                 }
               },
               builder: (context, state) {
-                return ListView.builder(
-                    itemCount: characters.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (characters.length < 0) {
-                        return ListTile(
-                          title: Text('No Characters Returned...Yet')
-                        );
-                      } else {
-                        String text = characters.elementAt(index).text ?? '';
-                        List textSplit = text.split('-');
-                        String name = textSplit[0];
+                return Stack(
+                  children: [
+                    ListView.builder(
+                      itemCount: characters.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (characters.length < 0) {
+                          return ListTile(
+                            title: Text('No Characters Returned...Yet')
+                          );
+                        } else {
+                          String text = characters.elementAt(index).text ?? '';
+                          List textSplit = text.split('-');
+                          String name = textSplit[0];
 
-                      return GestureDetector(
-                          onTap: () {
-                            // context.read<CharacterListViewCubit>().getLegislators(states.values.elementAt(index));
-                          },
-                          child: ListTile(
-                            title: Text(name),
-                          ));
-                    }});
+                        return GestureDetector(
+                            onTap: () {
+                              // context.read<CharacterListViewCubit>().getLegislators(states.values.elementAt(index));
+                            },
+                            child: ListTile(
+                              title: Text(name),
+                            ));
+                      }}),
+                    Visibility(child: FullScreenLoadingWidget(),visible: state is CharacterListViewLoading,)
+                ]);
               })));
   }
 }
