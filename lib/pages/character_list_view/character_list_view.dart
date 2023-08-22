@@ -1,6 +1,7 @@
 import 'package:character_viewer/models/character.dart';
 import 'package:character_viewer/pages/character_detail_view/character_detail_view.dart';
 import 'package:character_viewer/pages/character_list_view/character_list_view_cubit.dart';
+import 'package:character_viewer/widgets/error_dialog.dart';
 import 'package:character_viewer/widgets/full_screen_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,15 @@ class _CharacterListViewState extends State<CharacterListView> {
                   setState(() {
                     characters = state.characters;
                   });
+                } else if (state is CharacterListViewError) {
+                  showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return ErrorMessageDialog(
+                          title: 'Uh Oh',
+                          message: 'Looks like we couldn\'t find character information. Please try again later.',
+                        );
+                      });
                 }
               },
               builder: (context, state) {

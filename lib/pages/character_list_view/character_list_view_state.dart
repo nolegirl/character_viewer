@@ -5,6 +5,7 @@ abstract class CharacterListViewState {}
 
 class CharacterListViewInitial extends CharacterListViewState {}
 class CharacterListViewLoading extends CharacterListViewState {}
+class CharacterListViewError extends CharacterListViewState {}
 class CharacterListViewCharactersReturned extends CharacterListViewState {
   final List<Character> characters;
   CharacterListViewCharactersReturned(this.characters);

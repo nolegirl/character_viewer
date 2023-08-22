@@ -16,9 +16,10 @@ class CharacterListViewCubit extends Cubit<CharacterListViewState> {
         .get(Uri.parse('http://api.duckduckgo.com/?q=simpsons+characters&format=json'));
     if (response.statusCode == 200) {
       final List<Character> characters = _parseCharacters(jsonDecode(response.body));
-      emit(CharacterListViewCharactersReturned(characters));
+      emit(CharacterListViewError());
+      // emit(CharacterListViewCharactersReturned(characters));
     } else {
-      //TODO: Error Handling
+      emit(CharacterListViewError());
     }
   }
 
