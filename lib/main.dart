@@ -1,3 +1,5 @@
+import 'package:character_viewer/pages/character_detail_view/character_detail_view.dart';
+import 'package:character_viewer/pages/character_detail_view/character_detail_view_cubit.dart';
 import 'package:character_viewer/pages/character_list_view/character_list_view_cubit.dart';
 import 'package:character_viewer/utils/app_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +28,11 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => CharacterListViewCubit(),
               child: CharacterListView(),
+            ),
+        AppRoutes.detail: (context) =>
+            BlocProvider(
+              create: (context) => CharacterDetailViewCubit(),
+              child: CharacterDetailView(),
             ),
       }
     );

@@ -2,6 +2,7 @@ class Character {
   String? firstURL;
   String? iconURL;
   String? text;
+  String? name;
 
   Character({
     this.firstURL,
@@ -13,6 +14,7 @@ class Character {
     firstURL = json['FirstURL'];
     iconURL = json['Icon']['URL'];
     text = json['Text'];
+    name = text?.split('-')[0];
   }
 
   //TODO: Set up pulling name from FirstURL or Text

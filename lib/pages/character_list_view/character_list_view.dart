@@ -1,4 +1,5 @@
 import 'package:character_viewer/models/character.dart';
+import 'package:character_viewer/pages/character_detail_view/character_detail_view.dart';
 import 'package:character_viewer/pages/character_list_view/character_list_view_cubit.dart';
 import 'package:character_viewer/widgets/full_screen_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -51,16 +52,13 @@ class _CharacterListViewState extends State<CharacterListView> {
                             title: Text('No Characters Returned...Yet')
                           );
                         } else {
-                          String text = characters.elementAt(index).text ?? '';
-                          List textSplit = text.split('-');
-                          String name = textSplit[0];
-
+                          Character character = characters.elementAt(index);
                         return GestureDetector(
                             onTap: () {
-                              // context.read<CharacterListViewCubit>().getLegislators(states.values.elementAt(index));
+                              CharacterDetailView.routeTo(context, character);
                             },
                             child: ListTile(
-                              title: Text(name),
+                              title: Text(character.name ?? 'Error'),
                             ));
                       }}),
                     Visibility(child: FullScreenLoadingWidget(),visible: state is CharacterListViewLoading,)
