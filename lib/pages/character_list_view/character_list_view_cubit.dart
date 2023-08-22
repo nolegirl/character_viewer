@@ -31,7 +31,6 @@ class CharacterListViewCubit extends Cubit<CharacterListViewState> {
     parsedCharacters.add(newCharacter);
   });
 
-
   return parsedCharacters;
   }
 }
