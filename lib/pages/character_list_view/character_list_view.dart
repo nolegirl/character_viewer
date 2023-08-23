@@ -15,6 +15,8 @@ class CharacterListView extends StatefulWidget {
 
 class _CharacterListViewState extends State<CharacterListView> {
   List<Character> characters = [];
+  List<Character> filteredList = [];
+  String searchField = '';
 
   @override
   void initState() {
@@ -22,8 +24,20 @@ class _CharacterListViewState extends State<CharacterListView> {
     super.initState();
   }
 
+  List<Character> _getFilteredList() {
+    if (searchField.isEmpty) {
+      return characters;
+    } else {
+      return characters
+          .where((character) =>
+          character.name!.toLowerCase().contains(
+              searchField.toLowerCase())).toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final filteredList = _getFilteredList();
     return Scaffold(
       appBar: AppBar(
         title: Text('Character List'),
@@ -54,23 +68,44 @@ class _CharacterListViewState extends State<CharacterListView> {
               builder: (context, state) {
                 return Stack(
                   children: [
-                    ListView.builder(
-                      itemCount: characters.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (characters.length < 0) {
-                          return ListTile(
-                            title: Text('No Characters Returned...Yet')
-                          );
-                        } else {
-                          Character character = characters.elementAt(index);
-                        return GestureDetector(
-                            onTap: () {
-                              CharacterDetailView.routeTo(context, character);
+                    Column(
+                      children: [
+                        Container(
+                          height: 60,
+                          child: TextField(
+                            decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.search),
+                                hintText: 'Search',
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.only()),
+                            onChanged: (text) {
+                              setState(() {
+                                searchField = text;
+                              });
                             },
-                            child: ListTile(
-                              title: Text(character.name ?? 'Error'),
-                            ));
-                      }}),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: filteredList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                if (filteredList.length < 0) {
+                                  return ListTile(
+                                      title: Text('No Characters Returned...Yet')
+                                  );
+                                } else {
+                                  Character character = filteredList.elementAt(index);
+                                  return GestureDetector(
+                                      onTap: () {
+                                        CharacterDetailView.routeTo(context, character);
+                                      },
+                                      child: ListTile(
+                                        title: Text(character.name ?? 'Error'),
+                                      ));
+                                }}),
+                        ),
+                      ],
+                    ),
                     Visibility(child: FullScreenLoadingWidget(),visible: state is CharacterListViewLoading,)
                 ]);
               })));
