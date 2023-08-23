@@ -31,7 +31,7 @@ class _CharacterListViewState extends State<CharacterListView> {
       return characters
           .where((character) =>
           character.name!.toLowerCase().contains(
-              searchField.toLowerCase())).toList();
+              searchField.toLowerCase()) || character.text!.toLowerCase().contains(searchField.toLowerCase())).toList();
     }
   }
 
