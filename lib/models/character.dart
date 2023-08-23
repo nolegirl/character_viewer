@@ -15,6 +15,10 @@ class Character {
     iconURL = json['Icon']['URL'];
     text = json['Text'];
     name = text?.split('-')[0];
+
+    if (iconURL != '') {
+      iconURL = 'https://duckduckgo.com/${iconURL}';
+    }
   }
 
   //TODO: Set up pulling name from FirstURL or Text

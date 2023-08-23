@@ -57,8 +57,12 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
                       child: Column(
                         children: [
                           Center(
-                            child: CircleAvatar(
-                              radius: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                child: character != null ? Image.network(character?.iconURL != '' ? character?.iconURL ?? '': 'https://1.bp.blogspot.com/-GnLvST4e76I/U-egLS76FpI/AAAAAAAADPI/pZ1vfb33B-c/s1600/Logo+The_Simpsons.png') : Container(),
+                                radius: 80,
+                              ),
                             ),
                           ),
                           Padding(padding: EdgeInsets.symmetric(vertical: 20.0), child: Text(character?.text ?? ''),)
