@@ -39,37 +39,35 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(character?.name ?? ''),
-        ),
-        body: SafeArea(
-            child: BlocConsumer<
-                CharacterDetailViewCubit,
-                CharacterDetailViewState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is CharacterDetailViewLoading) {
-                    return FullScreenLoadingWidget();
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CircleAvatar(
-                                child: character != null ? Image.network(character?.iconURL != '' ? character?.iconURL ?? '': 'https://1.bp.blogspot.com/-GnLvST4e76I/U-egLS76FpI/AAAAAAAADPI/pZ1vfb33B-c/s1600/Logo+The_Simpsons.png') : Container(),
-                                radius: 80,
+
+      return Scaffold(
+          appBar: AppBar(
+            title: Text(character?.name ?? ''),
+          ),
+          body: SafeArea(
+              child: BlocConsumer<
+                  CharacterDetailViewCubit,
+                  CharacterDetailViewState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    if (state is CharacterDetailViewLoading) {
+                      return FullScreenLoadingWidget();
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: character != null ? Image.network(character?.iconURL ?? '', fit: BoxFit.cover, width: MediaQuery.sizeOf(context).width/2,) : Container(),
                               ),
                             ),
-                          ),
-                          Padding(padding: EdgeInsets.symmetric(vertical: 20.0), child: Text(character?.text ?? ''),)
-                        ],
-                      ),
-                    );
-                  }
-                })));
+                            Padding(padding: EdgeInsets.symmetric(vertical: 20.0), child: Text(character?.text ?? ''),)
+                          ],
+                        ),
+                      );
+                    }
+                  })));
+    }
   }
-}

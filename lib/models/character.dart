@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class Character {
   String? firstURL;
   String? iconURL;
@@ -18,6 +20,12 @@ class Character {
 
     if (iconURL != '') {
       iconURL = 'https://duckduckgo.com/${iconURL}';
+    } else {
+      if (Platform.isAndroid) {
+        iconURL = 'https://1.bp.blogspot.com/-GnLvST4e76I/U-egLS76FpI/AAAAAAAADPI/pZ1vfb33B-c/s1600/Logo+The_Simpsons.png';
+      } else if (Platform.isIOS) {
+        iconURL = 'http://payload29.cargocollective.com/1/1/39953/2890237/The-Wire-Birds-Logo-Version_o_960.jpg';
+      }
     }
   }
 
