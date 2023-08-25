@@ -6,7 +6,7 @@ import 'package:character_viewer/utils/helper_funcs.dart';
 class ErrorMessageDialog extends StatelessWidget {
   final String? title;
   final String? message;
-  String optionOnPressButtonTitle = '';
+  final String optionOnPressButtonTitle = '';
   final VoidCallback? optionalOnPress;
 
   ErrorMessageDialog({this.title, this.message, this.optionalOnPress});

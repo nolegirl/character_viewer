@@ -5,7 +5,6 @@ import 'package:character_viewer/widgets/custom_list_widget.dart';
 import 'package:character_viewer/widgets/error_dialog.dart';
 import 'package:character_viewer/widgets/full_screen_loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
@@ -42,10 +41,9 @@ class _CharacterListViewState extends State<CharacterListView> {
   @override
   Widget build(BuildContext context) {
     final filteredList = _getFilteredList();
-
-    final screenWidth = MediaQuery.of(context).size.width;
     Orientation currentOrientation = MediaQuery.of(context).orientation;
     DeviceType deviceType = SizerUtil.deviceType;
+
     if (currentOrientation == Orientation.landscape && deviceType == DeviceType.tablet) {
       return Scaffold(
           appBar: AppBar(

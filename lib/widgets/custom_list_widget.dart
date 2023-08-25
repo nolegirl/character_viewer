@@ -2,8 +2,8 @@ import 'package:character_viewer/models/character.dart';
 import 'package:flutter/material.dart';
 
 class CustomListWidget extends StatelessWidget {
-   List<Character>? characters;
-   Function(Character) onPress;
+   final List<Character>? characters;
+   final Function(Character) onPress;
 
   CustomListWidget({this.characters, required this.onPress});
 
